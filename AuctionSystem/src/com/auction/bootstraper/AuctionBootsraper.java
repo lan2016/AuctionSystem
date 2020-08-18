@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -14,13 +16,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.auction.cachecontroller.AuctionCacheController;
 import com.auction.jetty.AuctionJettyServer;
-import com.auction.pojos.ItemPojo;
+import com.auction.pojos.AuctionItemPojo;
 
 public class AuctionBootsraper {
 	
-	
+	 private static Logger logger = LogManager.getLogger(AuctionBootsraper.class);
 	public static void main(String[] args) {
 		try {
+			
+			logger.info("@@@@@@@@Auction BootStraper Started@@@@@@@@@@@@@");
+			
 			
 			readItemCodeExcel();
 			readPropertyFile();
@@ -31,6 +36,7 @@ public class AuctionBootsraper {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			logger.error("exception",e);
 			e.printStackTrace();
 		}
 		
@@ -53,17 +59,22 @@ public class AuctionBootsraper {
 			rowIterator.next();
 			while (rowIterator.hasNext()) {
 				row = rowIterator.next();
+				row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
+				row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
+				row.getCell(2).setCellType(Cell.CELL_TYPE_STRING);
 				itemCode = row.getCell(0).getStringCellValue().trim();
 				stepRate = row.getCell(1).getStringCellValue().trim();
 				basePrice = row.getCell(2).getStringCellValue().trim();
 				
-			AuctionCacheController.getRunningAuctionsItemsMap().put(itemCode, new ItemPojo(itemCode, Integer.parseInt(stepRate), Integer.parseInt(basePrice), true));
+			AuctionCacheController.getRunningAuctionsItemsMap().put(itemCode.trim(), new AuctionItemPojo(itemCode.trim(), Integer.parseInt(stepRate.trim()), Integer.parseInt(basePrice.trim()), true));
 
 			
 		}
+			logger.info("Running Auction Map.."+AuctionCacheController.getRunningAuctionsItemsMap());
 			} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			logger.error("exception",e);
 		}
 		finally {
 			if (fileInputStream!=null) {
@@ -84,20 +95,23 @@ public class AuctionBootsraper {
 	public static void readPropertyFile() {
 		
 		try {
-			 FileReader reader=new FileReader("server.properties");  
+			 FileReader reader=new FileReader("../configuration/server.properties");  
 		      
 			    Properties p=new Properties();  
 			    p.load(reader);  
 			    String ip=p.getProperty("ip");
 			    String port=p.getProperty("port");
 			    
+			    
 			    AuctionCacheController.setIp(ip);
 			    AuctionCacheController.setPort(port);
 			
+			    logger.info("Ip:"+ip+"-----Port:"+port);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			logger.error("exception",e);
 		}
 		
 	}

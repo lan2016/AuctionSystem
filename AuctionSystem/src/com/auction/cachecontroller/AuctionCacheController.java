@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.jetty.server.handler.ContextHandler.StaticContext;
 
-import com.auction.pojos.ItemPojo;
+import com.auction.pojos.AuctionItemPojo;
 import com.auction.pojos.UserPojo;
 
 /**
@@ -15,7 +15,7 @@ import com.auction.pojos.UserPojo;
 public class AuctionCacheController {
 	
 	private static ConcurrentHashMap<String,UserPojo>tokenForUsers=new ConcurrentHashMap<String,UserPojo>();
-	private static ConcurrentHashMap<String,ItemPojo>runningAuctionsItemsMap=new ConcurrentHashMap<>();
+	private static ConcurrentHashMap<String,AuctionItemPojo>runningAuctionsItemsMap=new ConcurrentHashMap<>();
 	private static String ip;
 	private static String port;
 	public static String getIp() {
@@ -36,10 +36,10 @@ public class AuctionCacheController {
 	public static void setTokenForUsers(ConcurrentHashMap<String, UserPojo> tokenForUsers) {
 		AuctionCacheController.tokenForUsers = tokenForUsers;
 	}
-	public static ConcurrentHashMap<String, ItemPojo> getRunningAuctionsItemsMap() {
+	public static ConcurrentHashMap<String, AuctionItemPojo> getRunningAuctionsItemsMap() {
 		return runningAuctionsItemsMap;
 	}
-	public static void setRunningAuctionsItemsMap(ConcurrentHashMap<String, ItemPojo> runningAuctionsItemsMap) {
+	public static void setRunningAuctionsItemsMap(ConcurrentHashMap<String, AuctionItemPojo> runningAuctionsItemsMap) {
 		AuctionCacheController.runningAuctionsItemsMap = runningAuctionsItemsMap;
 	}
 	

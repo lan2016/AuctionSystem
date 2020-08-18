@@ -1,5 +1,7 @@
 package com.auction.jetty;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -14,11 +16,11 @@ import com.auction.constants.AuctionConstants;
 import com.auction.handlers.AuctionHandler;
 
 public class AuctionJettyServer {
-	// private static Logger logger =
-	// LogManager.getLogger(AuctionJettyServer.class);
+	 private static Logger logger =
+	LogManager.getLogger(AuctionJettyServer.class);
 
 	public static void startJetty() {
-		//logger.info("*******Going to start jetty server*************");
+		logger.info("*******Going to start jetty server*************");
 		try {
 			Server server = new Server();
 			ServerConnector connector = new ServerConnector(server);
@@ -44,16 +46,15 @@ public class AuctionJettyServer {
 
 			try {
 				server.start();
-				// logger.info("-----------server started----------Es Handler
-				// Up---------------------");
+				 logger.info("-----------server started----------------------------");
 				System.out.println(" Jetty Server Started");
 			} catch (Exception e) {
-				// logger.error("exception",e);
+			 logger.error("exception",e);
 				System.out.println(e);
 			}
 
 		} catch (Exception e) {
-			// logger.error("exception",e);
+			 logger.error("exception",e);
 			e.printStackTrace();
 			System.out.println("Server not started");
 

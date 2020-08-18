@@ -9,7 +9,7 @@ import com.auction.comparators.BidComparator;
  * @author Rajat1.Bansal
  *
  */
-public class ItemPojo {
+public class AuctionItemPojo {
 	
 
 	String itemCode;
@@ -18,7 +18,7 @@ public class ItemPojo {
 	boolean runningStatus;
 	PriorityQueue<EntityPojo>usersBidsTrackingQueue=new PriorityQueue<>(new BidComparator());
 	
-	public ItemPojo(String itemCode, int stepRate, int minimumBasePrice, boolean runningStatus) {
+	public AuctionItemPojo(String itemCode, int stepRate, int minimumBasePrice, boolean runningStatus) {
 		
 		this.itemCode = itemCode;
 		this.stepRate = stepRate;
