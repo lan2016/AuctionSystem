@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build_completion" name="Create binaries for SDP EdgeLB" basedir=".">
+
+	<target name="init">
+		<mkdir dir="${basedir}/dist/Auction" />
+		<mkdir dir="${basedir}/dist/Auction/logs" />
+		<mkdir dir="${basedir}/dist/Auction/lib" />
+		<mkdir dir="${basedir}/dist/Auction/bin" />
+		<mkdir dir="${basedir}/dist/Auction/configuration" />
+		<mkdir dir="${basedir}/bin" />
+	</target>
+
+	<target name="bin">
+		<copy todir="${basedir}/dist/Auction/bin" overwrite="true">
+			<fileset file="${basedir}/run-as.bat" />
+			<fileset file="${basedir}/Kolkata_timeZone" />
+			<fileset file="${basedir}/run_shutdown_sh/runAuction.sh" />
+		</copy>
+	</target>
+
+
+	<target name="conf">
+		<copy todir="${basedir}/dist/Auction/bin" overwrite="true">
+			<fileset file="${basedir}/run-as.bat" />
+		</copy>
+
+		<copy todir="${basedir}/dist/Auction/configuration" overwrite="true">
+			<fileset dir="${basedir}/configuration" />
+
+		</copy>
+
+		<copy todir="${basedir}/dist/Auction/configuration" overwrite="true">
+			<fileset file="${basedir}/log4j2.xml" />
+		</copy>
+	</target>
+
+	<target name="lib">
+			<copy todir="${basedir}/dist/Auction/lib" overwrite="true">
+				<fileset dir="${basedir}/lib" />
+			</copy>
+		</target>
+	
+	<path id="project.class.path">
+		<fileset dir="${basedir}/lib">
+			<include name="*.jar" />
+		</fileset>
+		
+	</path>
+
+	<target name="compile" depends="init,lib">
+		<mkdir dir="${basedir}/classes" />
+		<javac includejavaruntime="true" includeantruntime="true" compiler="javac1.8" srcdir="${basedir}/src" destdir="${basedir}/classes" debug="on">
+			<classpath refid="project.class.path" />
+		</javac>
+	</target>
+
+
+
+	
+	
+	<target name="create_run_jar" depends="init,bin,conf,lib,compile">
+	
+		 <jar destfile="${basedir}/dist/Auction/bin/rtAuction.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="com.auction.bootstraper.AuctionBootsraper" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+
+			<fileset dir="${basedir}/bin" />
+			<file name="${basedir}/log4j2.xml" />
+		
+
+		</jar>
+	
+		
+	</target>
+
+
+
+
+	<target name="build_completion" depends="create_run_jar">
+		<checksum file="${basedir}/dist/Auction/bin/rtAuction.jar" property="rtAuction.jar" />
+		<echo file="${basedir}/dist/Auction/bin/checksum.md5" append="false">${rtSdpWorkflow.jar}  rtSdpWorkflow.jar&#10;</echo>
+			<delete>
+			<dirset dir="${basedir}" includes="CVS" />
+		</delete>
+	</target>
+
+</project>
