@@ -11,7 +11,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import com.auction.cachecontroller.AuctionCacheController;
 import com.auction.constants.AuctionConstants;
-import com.jio.handlers.AuctionHandler;
+import com.auction.handlers.AuctionHandler;
 
 public class AuctionJettyServer {
 	// private static Logger logger =
