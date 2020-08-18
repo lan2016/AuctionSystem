@@ -61,6 +61,9 @@ public class AuctionAPIS {
 				
 				ItemPojo itemPojo=AuctionCacheController.getRunningAuctionsItemsMap().get(itemcode);
 				UserPojo userPojo=AuctionCacheController.getTokenForUsers().get(token);
+				if(itemPojo.getUsersBidsTrackingQueue().size()==0&&bidAmount<itemPojo.getMinimumBasePrice()) {
+					return false;
+				}
 				if(bidAmount<itemPojo.getUsersBidsTrackingQueue().peek().getBidAmount()+itemPojo.getStepRate()) {
 					return false;
 				}
