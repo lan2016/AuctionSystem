@@ -16,6 +16,11 @@ public class AuctionItemPojo {
 	int stepRate;
 	int minimumBasePrice;
 	boolean runningStatus;
+	int currentPrice;
+	
+	public int getCurrentPrice() {
+		return usersBidsTrackingQueue.size()==0?minimumBasePrice:usersBidsTrackingQueue.peek().bidAmount;
+	}
 	PriorityQueue<EntityPojo>usersBidsTrackingQueue=new PriorityQueue<>(new BidComparator());
 	
 	public AuctionItemPojo(String itemCode, int stepRate, int minimumBasePrice, boolean runningStatus) {
@@ -31,7 +36,7 @@ public class AuctionItemPojo {
 	public void setItemCode(String itemCode) {
 		this.itemCode = itemCode;
 	}
-	public long getStepRate() {
+	public int getStepRate() {
 		return stepRate;
 	}
 	public void setStepRate(int stepRate) {

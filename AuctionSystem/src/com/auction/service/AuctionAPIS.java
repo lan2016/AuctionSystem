@@ -73,10 +73,12 @@ public class AuctionAPIS {
 				UserPojo userPojo=AuctionCacheController.getTokenForUsers().get(token);
 				if(itemPojo.getUsersBidsTrackingQueue().size()==0&&bidAmount<itemPojo.getMinimumBasePrice()) {
 					logger.error("Bid price is minimum then base price"+userID+"---"+token+"---"+bidAmount+"---"+itemcode);
+					itemPojo.getUsersBidsTrackingQueue().add(new EntityPojo(bidAmount,userPojo));
 					return false;
 				}
 				if(itemPojo.getUsersBidsTrackingQueue().size()!=0&&bidAmount<itemPojo.getUsersBidsTrackingQueue().peek().getBidAmount()+itemPojo.getStepRate()) {
 					logger.error("Bid price is minimum then lastPrice+step rate"+userID+"---"+token+"---"+bidAmount+"---"+itemcode);
+					itemPojo.getUsersBidsTrackingQueue().add(new EntityPojo(bidAmount,userPojo));
 					return false;
 				}
 				

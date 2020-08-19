@@ -19,15 +19,15 @@ public class AuctionJettyServer {
 	 private static Logger logger =
 	LogManager.getLogger(AuctionJettyServer.class);
 
-	public static void startJetty() {
+	public static boolean startJetty(String ip,String port) {
 		logger.info("*******Going to start jetty server*************");
 		try {
 			Server server = new Server();
 			ServerConnector connector = new ServerConnector(server);
 
-			connector.setHost(AuctionCacheController.getIp());
+			connector.setHost(ip);
 
-			connector.setPort(Integer.parseInt(AuctionCacheController.getPort()));
+			connector.setPort(Integer.parseInt(port));
 			server.setConnectors(new Connector[] { connector });
 
 			ContextHandlerCollection contexts = new ContextHandlerCollection();
@@ -47,7 +47,9 @@ public class AuctionJettyServer {
 			try {
 				server.start();
 				 logger.info("-----------server started----------------------------");
-				System.out.println(" Jetty Server Started");
+					System.out.println(" Jetty Server Started");
+				return true;
+				
 			} catch (Exception e) {
 			 logger.error("exception",e);
 				System.out.println(e);
@@ -59,6 +61,8 @@ public class AuctionJettyServer {
 			System.out.println("Server not started");
 
 		}
+		
+		return false;
 
 	}
 

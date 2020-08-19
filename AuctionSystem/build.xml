@@ -15,6 +15,7 @@
 			<fileset file="${basedir}/run-as.bat" />
 			<fileset file="${basedir}/Kolkata_timeZone" />
 			<fileset file="${basedir}/run_shutdown_sh/runAuction.sh" />
+			<fileset file="${basedir}/log4j2.xml" />
 		</copy>
 	</target>
 
@@ -47,18 +48,30 @@
 		
 	</path>
 
+	  
 	<target name="compile" depends="init,lib">
 		<mkdir dir="${basedir}/classes" />
-		<javac includejavaruntime="true" includeantruntime="true" compiler="javac1.8" srcdir="${basedir}/src" destdir="${basedir}/classes" debug="on">
+		 
+		<javac includejavaruntime="true" includeantruntime="true" compiler="javac1.8" srcdir="${basedir}/src" destdir="${basedir}/classes" debug="on"
+			 verbose = "true">
 			<classpath refid="project.class.path" />
 		</javac>
 	</target>
 
+	
 
+	 <target name = "test" depends="compile">
+	      <junit>
+	         <classpath refid = "project.class.path" />
+	      	<classpath location="${basedir}/classes" />
+	         <formatter type = "brief" usefile = "false" />
+	         <test name = "com.auction.junit.JUnitTestCases" />
+	      </junit>
+	   </target>
 
 	
 	
-	<target name="create_run_jar" depends="init,bin,conf,lib,compile">
+	<target name="create_run_jar" depends="init,bin,conf,lib,compile,test">
 	
 		 <jar destfile="${basedir}/dist/Auction/bin/rtAuction.jar" filesetmanifest="mergewithoutmain">
 			<manifest>
