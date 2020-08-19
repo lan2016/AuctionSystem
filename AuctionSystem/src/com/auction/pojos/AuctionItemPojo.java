@@ -1,5 +1,6 @@
 package com.auction.pojos;
 
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 import com.auction.comparators.BidComparator;
@@ -17,11 +18,24 @@ public class AuctionItemPojo {
 	int minimumBasePrice;
 	boolean runningStatus;
 	int currentPrice;
+	PriorityQueue<EntityPojo>usersBidsTrackingQueue=new PriorityQueue<>(new BidComparator());//this list will contain accept bit users data
+	LinkedList<EntityPojo>faliureData=new LinkedList<>();//rejected bid user data
 	
+	
+	public LinkedList<EntityPojo> getFaliureData() {
+		return faliureData;
+	}
+
+
+	public void setFaliureData(LinkedList<EntityPojo> faliureData) {
+		this.faliureData = faliureData;
+	}
+
+
 	public int getCurrentPrice() {
 		return usersBidsTrackingQueue.size()==0?minimumBasePrice:usersBidsTrackingQueue.peek().bidAmount;
 	}
-	PriorityQueue<EntityPojo>usersBidsTrackingQueue=new PriorityQueue<>(new BidComparator());
+	
 	
 	public AuctionItemPojo(String itemCode, int stepRate, int minimumBasePrice, boolean runningStatus) {
 		

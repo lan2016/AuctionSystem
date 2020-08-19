@@ -27,9 +27,9 @@ public class AuctionBootsraper {
 			logger.info("@@@@@@@@Auction BootStraper Started@@@@@@@@@@@@@");
 			
 			
-//			readItemCodeExcel();
-//			readPropertyFile();
-			AuctionJettyServer.startJetty("localhost","3450");
+			readItemCodeExcel();
+			readPropertyFile();
+			AuctionJettyServer.startJetty(AuctionCacheController.getIp(),AuctionCacheController.getPort());
 			
 			
 			

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="build_completion" name="Create binaries for SDP EdgeLB" basedir=".">
+<project default="build_completion" name="Create binaries for Auction" basedir=".">
 
 	<target name="init">
 		<mkdir dir="${basedir}/dist/Auction" />
