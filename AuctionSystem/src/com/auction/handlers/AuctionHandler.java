@@ -18,7 +18,7 @@ import com.auction.service.AuctionAPIS;
 
 public class AuctionHandler extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+	 private static final long serialVersionUID = 1L;
 	
 	private static Logger logger =
 			LogManager.getLogger(AuctionHandler.class);

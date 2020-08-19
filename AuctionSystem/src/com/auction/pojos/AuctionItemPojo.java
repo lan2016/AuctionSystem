@@ -13,13 +13,13 @@ import com.auction.comparators.BidComparator;
 public class AuctionItemPojo {
 	
 
-	String itemCode;
-	int stepRate;
-	int minimumBasePrice;
-	boolean runningStatus;
-	int currentPrice;
-	PriorityQueue<EntityPojo>usersBidsTrackingQueue=new PriorityQueue<>(new BidComparator());//this list will contain accept bit users data
-	LinkedList<EntityPojo>faliureData=new LinkedList<>();//rejected bid user data
+	private String itemCode;
+	private int stepRate;
+	private int minimumBasePrice;
+	private boolean runningStatus;
+	private int currentPrice;
+	private PriorityQueue<EntityPojo>usersBidsTrackingQueue=new PriorityQueue<>(new BidComparator());//this list will contain accept bit users data
+	private LinkedList<EntityPojo>faliureData=new LinkedList<>();//rejected bid user data
 	
 	
 	public LinkedList<EntityPojo> getFaliureData() {

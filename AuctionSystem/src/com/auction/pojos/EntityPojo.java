@@ -2,12 +2,13 @@ package com.auction.pojos;
 
 public class EntityPojo {
 
-	int bidAmount;
+	 int bidAmount;
+	private UserPojo user;
 	public EntityPojo(int bidAmount, UserPojo user) {
 		this.bidAmount = bidAmount;
 		this.user = user;
 	}
-	UserPojo user;
+	
 	public int getBidAmount() {
 		return bidAmount;
 	}
