@@ -10,7 +10,7 @@
 <RollingFile
     name="rollingFile"
     fileName="../logs/auction.log"
-    filePattern="../neListLogs/nelistlogs.%d{yyyy-MM-dd}%i.log"
+    filePattern="../logs/auction.%d{yyyy-MM-dd}%i.log"
     ignoreExceptions="false">
     <PatternLayout>
         <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p {%F:%L} - %m%n</Pattern>
